@@ -61,7 +61,8 @@ For example:
 
 ## Important classes
 There are several important classes that must to be included in the section markup:
-- `atom-sectionMain` should be on the top level wrapper of the section  
+- `atom-sectionMain rowHolder` should be on the top level wrapper of the section  
+- `main-app-container custom-space-top custom-space-bottom` another wrapper between the elements and the `rowHolder` wrapper
 - `element-${element.id}` should wrap every element in the section. (for example in the `people` section, `header` and `people` elements).
 - Find another important classes that are section-specific.
 
@@ -99,6 +100,13 @@ In the `people` example section, you can find an example of all the use cases de
 - `atom-1` should be on the contact name
 - `atom-2` should be on the contact title
 - `atom-3` should be on the contact company
+
+### Header
+general specs for each of the header themes:
+
+when rendering the name of the registerButton check: if it's a custom name, show the custom name else show the selected name. `(registerButton.name === 'custom' ? registerButton.customName : registerButton.name})`
+
+link to mockups: https://invis.io/UATNTNOWNVZ#/395126714_HeaderThemeWebHalf_Copy
 
 ## Create React App
 
