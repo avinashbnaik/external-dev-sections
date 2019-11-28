@@ -2,166 +2,238 @@
 import React from "react";
 import { createUseStyles } from "react-jss";
 import classnames from "classnames";
-import classes from "*.module.sass";
 const useStyles = createUseStyles({
-  gravatar: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: "50%",
-    color: "white",
-    margin: "auto",
-    transform: "translate(0, -10%)",
-    fontSize: 70
-  },
-  contactInfoContainer: {
-    paddingTop: 8,
-    color: "#000",
-    "& .contact-fullname": {
-      fontSize: "1rem",
-      fontWeight: "bold"
+  headerSectionContainer: {
+    minHeight: "100vh",
+    position: "relative",
+    "& .content": {
+      padding: "56px",
+      paddingLeft: "48px",
+      minHeight: "100vh",
+
+      "& .eventLogo": {
+        "& img": {
+          maxWidth: "80px",
+          maxHeight: "80px"
+        }
+      },
+      "& .eventName": {
+        paddingTop: "30px",
+        paddingBottom: "30px",
+        lineHeight: 1,
+        fontSize: 110,
+        fontWeight: "bold",
+        color: "#FF5243"
+      },
+      "& .eventSecondaryHeaders": {
+        fontSize: "24px"
+      },
+      "& .registerButton": {
+        paddingTop: "30px",
+        paddingBottom: "30px",
+
+        "& > button": {
+          padding: "18px 42px 18px 42px",
+          fontSize: "28px",
+          color: "white",
+          backgroundColor: "#ff0a98",
+          fontWeight: "bold",
+          border: "2px solid white",
+
+          "&:hover": {
+            color: "#ff0a98",
+            backgroundColor: "white",
+            border: "2px solid #ff0a98"
+          }
+        }
+      },
+      "& .eventDate": {
+        fontWeight: "bold",
+        fontSize: "18px",
+        color: "black",
+        paddingBottom: "16px"
+      },
+      "& .socialShare": {
+        position: "absolute",
+        bottom: "40px",
+        "& > a": {
+          marginRight: "16px",
+          "& > i": {
+            fontSize: 50,
+            width: "50px",
+            height: "50px",
+            borderRadius: "50px",
+            // boxShadow: "2px 2px  rgba(0,0,0,0.6)",
+            boxShadow:
+              "0px 0px 2px rgba(0,0,0,0.1),2px 2px 12px rgba(0,0,0,0.1),4px 4px 16px rgba(0,0,0,0.1)",
+            "&:hover": {
+              backgroundColor: "#11679C",
+              color: "white"
+            }
+          }
+        }
+      }
     },
-    "& .contact-title": {
-      fontSize: "0.8rem"
-    },
-    "& .contact-company": {
-      fontSize: "0.8rem",
-      fontWeight: "bold"
+    "& .cover": {
+      minHeight: "100vh",
+      backgroundImage:
+        'url("https://res.cloudinary.com/bizzaboprod/image/upload/v1419411425/SplitShire-7662_eqi7sf")'
     }
   }
 });
-export default ({ section }) => {
-  const { elements: [header, people] = [] } = section;
-  const { text, rootKey } = header;
-  const { contacts, contactListId } = people;
-  console.log(section);
+export default ({ section: { id, rootKey, elements } }) => {
+  const classes = useStyles();
   return (
-    <div className="atom-sectionMain row">
-      <div className="col-xs-12 text-center attendees-faces contacts-element">
-        <div className="main-app-container  ">
-          <div
-            className={`col-xs-12 text-center form-group element-${rootKey}`}
-          >
-            <h2 className="atom-main medium custom-font">{text}</h2>
+    <div className="rowHolder element-1469903 atom-sectionSecondary ">
+      <div className={classnames("row", classes.headerSectionContainer)}>
+        <div className="col-md-6">
+          <div className="content">
+            {elements && elements[2] && <EventLogo element={elements[2]} />}
+
+            {elements && elements[0] && <EventName element={elements[0]} />}
+
+            {elements && elements[4] && (
+              <EventSecondaryHeaders
+                element={elements[4]}
+                value={elements[4].header2}
+              />
+            )}
+            {elements && elements[5] && (
+              <RegisterButton element={elements[5]} />
+            )}
+            {elements && elements[1] && <EventDate element={elements[1]} />}
+
+            {elements && elements[4] && (
+              <EventSecondaryHeaders
+                element={elements[4]}
+                value={elements[4].header1}
+              />
+            )}
+            {elements && elements[6] && <SocialShare element={elements[6]} />}
           </div>
-          <div className="col-xs-12 text-center attendees-faces-holder">
-            <div className="row js-contacts-element">
-              {contactListId ? (
-                contacts.map(contact => (
-                  <Contact
-                    key={contact.id}
-                    rootKey={people.rootKey}
-                    contact={contact}
-                  />
-                ))
-              ) : (
-                <div className="attendees-empty">
-                  <img
-                    src="https://events.bizzabo.com/scripts/web-common/editor-templates/images/urban/attendees_empty.png"
-                    alt="no attendees"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
+        </div>
+
+        <div class="col-md-6 p-0 bg-white h-md-100 cover cover-photo-background custom-space-top custom-space-bottom">
+          <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center" />
         </div>
       </div>
     </div>
   );
 };
-
-function Contact({ contact, rootKey }) {
-  const {
-    id,
-    thumbnailUrl,
-    firstName,
-    lastName,
-    speakerId,
-    facebookPage,
-    linkedinPage,
-    twitter,
-    title,
-    company
-  } = contact;
+function EventLogo({ element: { rootKey, logoPhotoSet } }) {
   return (
-    <div className="col-md-3 col-sm-6 col-xs-12 entity-photo-holder">
-      <div className={`element-${rootKey}`}>
-        {speakerId ? (
-          <a href={`/5794/agenda/speakers/${speakerId}`}>
-            <ContactImage {...{ firstName, lastName, thumbnailUrl, rootKey }} />
-          </a>
-        ) : (
-          <div className="make-relative">
-            <ContactImage {...{ firstName, lastName, thumbnailUrl, rootKey }} />
-          </div>
-        )}
-      </div>
-
-      <ContactInfo {...{ firstName, lastName, rootKey, title, company }} />
-
-      <ContactSocial {...{ facebookPage, linkedinPage, twitter, rootKey }} />
+    <div className="eventLogo">
+      {logoPhotoSet && <img key={rootKey} src={logoPhotoSet} alt="logo" />}
     </div>
   );
 }
-function ContactInfo({ rootKey, firstName, lastName, title, company }) {
-  const classes = useStyles();
+function EventName({ element: { rootKey, eventName } }) {
   return (
-    <div
-      className={classnames(`element-${rootKey}`, classes.contactInfoContainer)}
-    >
-      <div className="atom-text1 contact-fullname">
-        {`${firstName} ${lastName}`}
-      </div>
-      <div className="atom-text2  contact-title">{title}</div>
-      <div className="atom-text3  contact-company">{company}</div>
+    <div className="eventName" key={rootKey}>
+      {eventName}
     </div>
   );
 }
-const ContactImage = props => {
-  const { firstName, lastName, thumbnailUrl } = props;
-  const classes = useStyles();
-  let retVal = null;
+function EventSecondaryHeaders({ element: { rootKey }, value }) {
+  return (
+    <div key={rootKey} className="eventSecondaryHeaders">
+      {value}
+    </div>
+  );
+}
+function RegisterButton({ element: { rootKey, name } }) {
+  return (
+    <div key={rootKey} className="registerButton">
+      <button>{name}</button>
+    </div>
+  );
+}
+function EventDate({ element: { rootKey, localStartDate, localEndDate } }) {
+  const startDate = new Date(localStartDate);
+  const endDate = new Date(localEndDate);
 
-  if (thumbnailUrl) {
-    retVal = <img src={thumbnailUrl} className="center-block" alt="speaker" />;
+  var months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  let date = "";
+  const getDay = day => {
+    switch (day) {
+      case 1:
+        return "1st";
+      case 2:
+        return "2nd";
+      case 3:
+        return "3rd";
+      default:
+        return `${day}th`;
+    }
+  };
+  const getMinutes = min => {
+    if (min < 10) {
+      return `0${min}`;
+    }
+    return min;
+  };
+
+  if (startDate.getMonth() === endDate.getMonth()) {
+    date = `${months[startDate.getMonth()]} `;
+    if (startDate.getDay() === endDate.getDay()) {
+      date += `${getDay(startDate.getDay())}, `;
+
+      if (startDate.getTime() === endDate.getTime()) {
+        date += ` ${startDate.getHours()}:${getMinutes(
+          startDate.getMinutes()
+        )} `;
+      } else {
+        date += `${startDate.getHours()}:${getMinutes(
+          startDate.getMinutes()
+        )} - ${endDate.getHours()}:${getMinutes(endDate.getMinutes())}`;
+      }
+    } else {
+      date += `${months[startDate.getMonth()]} ${getDay(
+        startDate.getDay()
+      )} - ${getDay(endDate.getDay())}, `;
+    }
   } else {
-    retVal = (
-      <>
-        <img
-          src="https://events.bizzabo.com/images/home/empty_placeholder.png"
-          className="img-responsive  center-block"
-          alt="placeholder"
-        />
-        <div className={classes.gravatar}>
-          {firstName.charAt(0).toUpperCase()}
-          {lastName.charAt(0).toUpperCase()}
-        </div>
-      </>
-    );
+    date = `${months[startDate.getMonth()]} ${getDay(startDate.getDay())} - ${
+      months[endDate.getMonth()]
+    } ${getDay(endDate.getDay())} `;
   }
+  date += `, ${startDate.getFullYear()}`;
 
-  return retVal;
-};
-function ContactSocial({ facebookPage, linkedinPage, twitter }) {
+  return <div key={rootKey} className="eventDate">{`${date}`}</div>;
+}
+function SocialShare({
+  element: { rootKey, twitter, facebook, linkedin, landingPageUrl }
+}) {
   return (
-    <div className={classes.socialLinks}>
-      <a href={facebookPage} target="_blank" rel="noopener noreferrer">
-        <i className="speaker-icon fa icon-facebook" />
-      </a>
-
-      <a href={linkedinPage} target="_blank" rel="noopener noreferrer">
-        <i className="speaker-icon fa icon-linkedin" />
-      </a>
-
-      <a
-        href={`https://twitter.com/${twitter}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i className="speaker-icon fa icon-twitter" />
-      </a>
+    <div key={rootKey} className="socialShare">
+      {facebook && (
+        <a href={landingPageUrl} target="_blank" rel="noopener noreferrer">
+          <i className="speaker-icon fa icon-facebook" />
+        </a>
+      )}
+      {linkedin && (
+        <a href={landingPageUrl} target="_blank" rel="noopener noreferrer">
+          <i className="speaker-icon fa icon-linkedin" />
+        </a>
+      )}
+      {twitter && (
+        <a href={landingPageUrl} target="_blank" rel="noopener noreferrer">
+          <i className="speaker-icon fa icon-twitter" />
+        </a>
+      )}
     </div>
   );
 }

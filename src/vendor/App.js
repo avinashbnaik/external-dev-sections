@@ -3,6 +3,7 @@ import Header from "../examples/header";
 import People from "../examples/people";
 import NewPeople from "../Section";
 import NewHeader from "../Section";
+import Section from "../Section";
 
 const headerSectionProps = {
   id: 440241,
@@ -19,7 +20,7 @@ const headerSectionProps = {
       customizationVersion: 1,
       column: -1,
       visibilityParent: false,
-      eventName: "guy2"
+      eventName: "INNOV EXPO 2020"
     },
     {
       type: "eventDate",
@@ -41,7 +42,8 @@ const headerSectionProps = {
       visibility: true,
       customizationVersion: 1,
       column: -1,
-      visibilityParent: false
+      visibilityParent: false,
+      logoPhotoSet: "/logo192.png"
     },
     {
       type: "image",
@@ -64,7 +66,8 @@ const headerSectionProps = {
       column: -1,
       visibilityParent: false,
       header1: "United States",
-      header2: "Doors open at:"
+      header2:
+        "The downtown expo hall features a host of interesting and amazing innovations for you to enjoy throughout the day."
     },
     {
       type: "registerButton",
@@ -75,7 +78,7 @@ const headerSectionProps = {
       customizationVersion: 1,
       column: -1,
       visibilityParent: false,
-      name: "Register",
+      name: "REGISTER NOW",
       mode: "register",
       newTab: false
     },
@@ -193,6 +196,8 @@ const App = props => {
               id={`section-${headerSectionProps.id}`}
             >
               <Header section={headerSectionProps} />
+              <Section section={headerSectionProps} />
+
               <People section={peopleSectionProps} />
               <NewPeople section={peopleSectionProps} />
             </div>
