@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { createUseStyles } from "react-jss";
+import  * as _ from 'lodash';
 import classnames from "classnames";
 const useStyles = createUseStyles({
   headerSectionContainer: {
@@ -83,37 +84,39 @@ const useStyles = createUseStyles({
 });
 export default ({ section: { id, rootKey, elements } }) => {
   const classes = useStyles();
+  const elementsByType = _.keyBy(elements, "type");
+  const {eventName, eventDate, eventLogo, eventSecondaryHeaders,registerButton, socialShare, image} = elementsByType;
   return (
-    <div className="rowHolder element-1469903 atom-sectionSecondary ">
+    <div key={rootKey} className="rowHolder element-1469903 atom-sectionSecondary ">
       <div className={classnames("row", classes.headerSectionContainer)}>
         <div className="col-md-6">
           <div className="content">
-            {elements && elements[2] && <EventLogo element={elements[2]} />}
+            {eventLogo && <EventLogo element={eventLogo} />}
 
-            {elements && elements[0] && <EventName element={elements[0]} />}
+            {eventName && <EventName element={eventName} />}
 
-            {elements && elements[4] && (
+            {eventSecondaryHeaders && (
               <EventSecondaryHeaders
-                element={elements[4]}
-                value={elements[4].header2}
+                element={eventSecondaryHeaders}
+                value={eventSecondaryHeaders.header2}
               />
             )}
-            {elements && elements[5] && (
-              <RegisterButton element={elements[5]} />
+            {registerButton && (
+              <RegisterButton element={registerButton} />
             )}
-            {elements && elements[1] && <EventDate element={elements[1]} />}
+            {eventDate && <EventDate element={eventDate} />}
 
-            {elements && elements[4] && (
+            {eventSecondaryHeaders && (
               <EventSecondaryHeaders
-                element={elements[4]}
-                value={elements[4].header1}
+                element={eventSecondaryHeaders}
+                value={eventSecondaryHeaders.header1}
               />
             )}
-            {elements && elements[6] && <SocialShare element={elements[6]} />}
+            {socialShare && <SocialShare element={socialShare} />}
           </div>
         </div>
 
-        <div class="col-md-6 p-0 bg-white h-md-100 cover cover-photo-background custom-space-top custom-space-bottom">
+        <div class="col-md-6 cover cover-photo-background custom-space-top custom-space-bottom">
           <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center" />
         </div>
       </div>
@@ -141,17 +144,17 @@ function EventSecondaryHeaders({ element: { rootKey }, value }) {
     </div>
   );
 }
-function RegisterButton({ element: { rootKey, name } }) {
+function RegisterButton({ element: { rootKey, name, customName } }) {
+  const btnName = name==='custom' ? customName : name
   return (
     <div key={rootKey} className="registerButton">
-      <button>{name}</button>
+      <button>{btnName}</button>
     </div>
   );
 }
 function EventDate({ element: { rootKey, localStartDate, localEndDate } }) {
-  const startDate = new Date(localStartDate);
-  const endDate = new Date(localEndDate);
-
+  const startDate = new Date(localStartDate.replace(/-/g, "/"));
+  const endDate = new Date(localEndDate.replace(/-/g, "/"));
   var months = [
     "January",
     "February",
@@ -211,6 +214,7 @@ function EventDate({ element: { rootKey, localStartDate, localEndDate } }) {
     } ${getDay(endDate.getDay())} `;
   }
   date += `, ${startDate.getFullYear()}`;
+  console.log('date',startDate,endDate,date)
 
   return <div key={rootKey} className="eventDate">{`${date}`}</div>;
 }

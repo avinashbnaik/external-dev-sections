@@ -2,7 +2,6 @@ import React from "react";
 import Header from "../examples/header";
 import People from "../examples/people";
 import NewPeople from "../Section";
-import NewHeader from "../Section";
 import Section from "../Section";
 
 const headerSectionProps = {
