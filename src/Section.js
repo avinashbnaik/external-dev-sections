@@ -5,12 +5,25 @@ import  * as _ from 'lodash';
 import classnames from "classnames";
 const useStyles = createUseStyles({
   headerSectionContainer: {
-    minHeight: "100vh",
-    position: "relative",
+    position:'relative',
+    '@media screen and (min-width: 769px)': {
+      display:"flex",
+      flexDirection: "row",
+      height:'100%',
+      minHeight: "100vh",
+    },  
+
+    
     "& .content": {
       padding: "56px",
       paddingLeft: "48px",
-      minHeight: "100vh",
+      '@media screen and  (min-width: 1200px)': {
+
+      },
+      '@media screen and (max-width: 600px)': {
+        padding: "28px",
+    
+      },
 
       "& .eventLogo": {
         "& img": {
@@ -24,10 +37,20 @@ const useStyles = createUseStyles({
         lineHeight: 1,
         fontSize: 110,
         fontWeight: "bold",
-        color: "#FF5243"
+        color: "#FF5243",
+        '@media screen and  (max-width: 600px)': {
+          fontSize: 55,
+          paddingBottom: "10px"
+
+        }
       },
       "& .eventSecondaryHeaders": {
-        fontSize: "24px"
+        fontSize: "18px",
+        '@media screen and (min-width: 601px)': {
+          fontSize: "24px",
+
+        }
+
       },
       "& .registerButton": {
         paddingTop: "30px",
@@ -45,33 +68,55 @@ const useStyles = createUseStyles({
             color: "#ff0a98",
             backgroundColor: "white",
             border: "2px solid #ff0a98"
-          }
-        }
+          },
+          '@media screen and (max-width: 600px)': {
+            padding: "10px 21px 10px 21px",
+            fontSize: "18px",
+            fontWeight:'normal'
+          },
+  
+        },
+  
       },
       "& .eventDate": {
         fontWeight: "bold",
         fontSize: "18px",
         color: "black",
-        paddingBottom: "16px"
+        '@media screen and (min-width: 601px)': {
+          paddingBottom: "12px",
+
+        }
       },
       "& .socialShare": {
-        position: "absolute",
-        bottom: "40px",
+        paddingTop: '30px',
+        paddingBottom:'30px',
+
         "& > a": {
           marginRight: "16px",
           "& > i": {
-            fontSize: 50,
-            width: "50px",
-            height: "50px",
-            borderRadius: "50px",
+            fontSize: 36,
+            width: "36px",
+            height: "36px",
+            borderRadius: "36px",
             // boxShadow: "2px 2px  rgba(0,0,0,0.6)",
             boxShadow:
               "0px 0px 2px rgba(0,0,0,0.1),2px 2px 12px rgba(0,0,0,0.1),4px 4px 16px rgba(0,0,0,0.1)",
             "&:hover": {
               backgroundColor: "#11679C",
               color: "white"
+            },
+            '@media screen and (min-width: 1201px)': {
+              fontSize: 50,
+              width: "50px",
+              height: "50px",
+  
             }
+    
           }
+        },
+        '@media screen and (min-width: 1401px)': {
+          position: "absolute",
+          bottom: "20px",
         }
       }
     },
@@ -79,7 +124,7 @@ const useStyles = createUseStyles({
       minHeight: "100vh",
       backgroundImage:
         'url("https://res.cloudinary.com/bizzaboprod/image/upload/v1419411425/SplitShire-7662_eqi7sf")'
-    }
+    },
   }
 });
 export default ({ section: { id, rootKey, elements } }) => {
@@ -89,7 +134,7 @@ export default ({ section: { id, rootKey, elements } }) => {
   return (
     <div key={rootKey} className="rowHolder element-1469903 atom-sectionSecondary ">
       <div className={classnames("row", classes.headerSectionContainer)}>
-        <div className="col-md-6">
+        <div className="col-md-6 col-xs-12 col-sm-12">
           <div className="content">
             {eventLogo && <EventLogo element={eventLogo} />}
 
@@ -116,8 +161,8 @@ export default ({ section: { id, rootKey, elements } }) => {
           </div>
         </div>
 
-        <div class="col-md-6 cover cover-photo-background custom-space-top custom-space-bottom">
-          <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center" />
+        <div class="col-md-6 col-xs-12 col-sm-12 cover cover-photo-background custom-space-top custom-space-bottom">
+          <div class=" align-items-center  justify-content-center" />
         </div>
       </div>
     </div>

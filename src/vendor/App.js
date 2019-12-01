@@ -64,9 +64,8 @@ const headerSectionProps = {
       customizationVersion: 1,
       column: -1,
       visibilityParent: false,
-      header1: "United States",
-      header2:
-        "The downtown expo hall features a host of interesting and amazing innovations for you to enjoy throughout the day."
+      header1: "55 Church St, New York, NY 10007, United States",
+      header2: "The downtown expo hall features a host of interesting and amazing innovations for you to enjoy throughout the day."
     },
     {
       type: "registerButton",
