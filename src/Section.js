@@ -121,7 +121,10 @@ const useStyles = createUseStyles({
       }
     },
     "& .cover": {
-      minHeight: "100vh",
+      '@media screen and (min-width: 1401px)': {
+        minHeight: "100vh",
+
+      },
       backgroundImage:
         'url("https://res.cloudinary.com/bizzaboprod/image/upload/v1419411425/SplitShire-7662_eqi7sf")'
     },
